@@ -1,0 +1,3 @@
+"""
+Booking state definitions.
+"""
