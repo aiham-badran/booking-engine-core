@@ -1,8 +1,8 @@
 # Ideas (Out of V1 Scope)
 
-- Advanced rule engine
-- Extensions marketplace
-- SaaS management layer
+-   Advanced rule engine
+-   Extensions marketplace
+-   SaaS management layer
 
 # Ideas & Improvements (Post-V1)
 
@@ -19,14 +19,14 @@ Add explicit type hints to all public classes and methods across the core module
 
 ### Why
 
-- Improves readability and maintainability
-- Enables static analysis tools (mypy, pyright)
-- Reduces misuse of core APIs by developers
+-   Improves readability and maintainability
+-   Enables static analysis tools (mypy, pyright)
+-   Reduces misuse of core APIs by developers
 
 ### When
 
-- After V1 stabilization
-- Before inviting external contributors
+-   After V1 stabilization
+-   Before inviting external contributors
 
 ---
 
@@ -36,19 +36,19 @@ Add explicit type hints to all public classes and methods across the core module
 
 Enhance the Context entity with:
 
-- **repr** for debugging
-- **eq** for identity comparison
+-   **repr** for debugging
+-   **eq** for identity comparison
 
 ### Why
 
-- Improves debugging and logging
-- Makes Context comparisons explicit and safe
-- No impact on business logic
+-   Improves debugging and logging
+-   Makes Context comparisons explicit and safe
+-   No impact on business logic
 
 ### When
 
-- Early V2
-- Before adding more Context-dependent logic
+-   Early V2
+-   Before adding more Context-dependent logic
 
 ---
 
@@ -60,14 +60,14 @@ Prevent registering two Contexts with the same identifier in ContextRegistry.
 
 ### Why
 
-- Avoids silent overwrites
-- Makes system behavior explicit
-- Improves error visibility for developers
+-   Avoids silent overwrites
+-   Makes system behavior explicit
+-   Improves error visibility for developers
 
 ### When
 
-- V2
-- When Context creation becomes dynamic or user-driven
+-   V2
+-   When Context creation becomes dynamic or user-driven
 
 ---
 
@@ -77,19 +77,19 @@ Prevent registering two Contexts with the same identifier in ContextRegistry.
 
 Introduce custom exceptions such as:
 
-- ContextNotFoundError
-- ContextAlreadyExistsError
+-   ContextNotFoundError
+-   ContextAlreadyExistsError
 
 ### Why
 
-- Clearer error semantics
-- Easier error handling for integrators
-- Improves API expressiveness
+-   Clearer error semantics
+-   Easier error handling for integrators
+-   Improves API expressiveness
 
 ### When
 
-- V2
-- Before public API exposure
+-   V2
+-   Before public API exposure
 
 ---
 
@@ -102,11 +102,21 @@ to store non-core metadata and behavior flags.
 
 ### Why
 
-- Keeps Context entity clean
-- Enables future per-context customization
-- Prevents bloating the Context class
+-   Keeps Context entity clean
+-   Enables future per-context customization
+-   Prevents bloating the Context class
 
 ### When
 
-- After Core Request Flow is stable
-- Before adding advanced features (SaaS, analytics)
+-   After Core Request Flow is stable
+-   Before adding advanced features (SaaS, analytics)
+
+### Roles & Permissions
+
+إضافة RoleRepository
+
+إضافة Permission Groups
+
+إضافة Policies
+
+إضافة Extensions Hooks
