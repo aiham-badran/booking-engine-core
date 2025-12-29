@@ -120,3 +120,16 @@ to store non-core metadata and behavior flags.
 إضافة Policies
 
 إضافة Extensions Hooks
+
+## Booking status
+
+status String.
+
+هذا مقبول في V1
+لكن لاحقًا يجب تحويله الى
+Enum
+
+## test_booking_repository_isolated_by_context
+
+اضافة
+list_by_context_and_service()

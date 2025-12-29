@@ -19,3 +19,13 @@ class AuthorizationService:
 
         # 4. Role must have permission
         return role.has_permission(permission_name)
+
+    def is_allowed(self, user, permission_name: str) -> bool:
+        """
+        Public booking is allowed by default.
+        If user has a role, permission must be checked.
+        """
+        if not hasattr(user, "role") or user.role is None:
+            return True
+
+        return user.role.has_permission(permission_name)
