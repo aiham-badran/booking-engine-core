@@ -29,3 +29,4 @@ class AuthorizationService:
             return True
 
         return user.role.has_permission(permission_name)
+

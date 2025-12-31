@@ -16,3 +16,16 @@ class Booking:
         self.start_time = start_time
         self.end_time = end_time
         self.status = status
+
+    def cancel(self):
+        if self.status == "CANCELLED":
+            raise ValueError("Booking already cancelled")
+
+        self.status = "CANCELLED"
+
+    def reschedule(self, new_start_time, new_end_time):
+        if self.status == "CANCELLED":
+            raise ValueError("Cannot reschedule cancelled booking")
+
+        self.start_time = new_start_time
+        self.end_time = new_end_time

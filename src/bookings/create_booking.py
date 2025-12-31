@@ -11,19 +11,30 @@ def create_booking(
     availabilities,
     booking_repository,
     rules_service,
-    authorization_service
+    authorization_service,
+    hook_manager=None
 ):
+    # 0️⃣ Before Hook
+    if hook_manager:
+        hook_manager.run_before(
+            "create_booking",
+            context_id,
+            {
+                "booking_id": booking_id,
+                "service_id": service_id,
+                "user": user,
+                "start_time": start_time,
+                "end_time": end_time
+            }
+        )
+
     # 1️⃣ Authorization (optional)
     if hasattr(user, "role") and user.role is not None:
-        if not authorization_service.is_allowed(
-            user, "book_service"
-        ):
+        if not authorization_service.is_allowed(user, "book_service"):
             raise ValueError("User not allowed to book")
 
-    # 2️⃣ Load existing bookings (same context)
     existing_bookings = booking_repository.list_by_context(context_id)
 
-    # 3️⃣ Apply booking rules
     allowed = rules_service.can_book(
         context_id=context_id,
         service_id=service_id,
@@ -36,7 +47,6 @@ def create_booking(
     if not allowed:
         raise ValueError("Booking rules rejected")
 
-    # 4️⃣ Create booking
     booking = Booking(
         booking_id=booking_id,
         context_id=context_id,
@@ -47,7 +57,14 @@ def create_booking(
         status="CONFIRMED"
     )
 
-    # 5️⃣ Save booking
     booking_repository.add(booking)
+
+    # 2️⃣ After Hook
+    if hook_manager:
+        hook_manager.run_after(
+            "create_booking",
+            context_id,
+            booking
+        )
 
     return booking
