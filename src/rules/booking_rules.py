@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime
-
+        
 class BookingRulesService:
     """
     Domain service responsible for validating booking rules.
