@@ -1,23 +1,15 @@
-"""
-User Entity
-"""
+# core/domain/entities/user.py
 
-from dataclasses import dataclass
-
-
-@dataclass(frozen=True)
 class User:
     """
-    Core User entity.
-
-    Why it exists:
-    - Represents a system user.
-    - Always belongs to a single organization.
-
-    What it does:
-    - Holds user data only.
-    - Contains no business logic.
+    Represents a system user.
+    A user ALWAYS belongs to an organization.
     """
-    id: str
-    organization_id: str
-    name: str
+
+    def __init__(self, id: str, organization_id: str, role: str):
+        self.id = id
+        self.organization_id = organization_id
+        self.role = role
+
+    def is_admin(self) -> bool:
+        return self.role == "admin"

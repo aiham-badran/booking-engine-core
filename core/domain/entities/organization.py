@@ -1,27 +1,15 @@
-"""
-Organization Entity
+# core/domain/entities/organization.py
 
-Represents a single tenant inside the system.
-This entity contains no booking or user-related logic.
-"""
-
-from dataclasses import dataclass
-from typing import Dict
-
-
-@dataclass(frozen=True)
 class Organization:
     """
-    Core Organization entity.
-
-    Why it exists:
-    - Represents the main tenant boundary in a multi-tenant system.
-    - All data (bookings, users, settings) must belong to an organization.
-
-    What it does:
-    - Holds organization data only.
-    - Contains no business logic.
+    Represents a tenant in the booking engine.
+    All data in the system MUST belong to an organization.
     """
-    id: str
-    name: str
-    settings: Dict[str, object]
+
+    def __init__(self, id: str, name: str, timezone: str):
+        self.id = id
+        self.name = name
+        self.timezone = timezone
+
+    def __eq__(self, other):
+        return isinstance(other, Organization) and self.id == other.id

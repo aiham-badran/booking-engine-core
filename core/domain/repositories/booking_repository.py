@@ -3,7 +3,7 @@ Booking Repository Interface
 """
 
 from abc import ABC, abstractmethod
-from typing import Optional
+from core.domain.value_objects.time_slot import TimeSlot
 
 from core.domain.entities.booking import Booking
 
@@ -20,7 +20,5 @@ class BookingRepository(ABC):
         """
 
     @abstractmethod
-    def get_by_id(self, booking_id: str) -> Optional[Booking]:
-        """
-        Retrieve a booking by its identifier.
-        """
+    def exists(self, organization_id: str, time_slot: TimeSlot) -> bool:
+        pass

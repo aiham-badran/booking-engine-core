@@ -1,24 +1,30 @@
-"""
-Booking Entity
-"""
-
+# core/domain/entities/booking.py
 from dataclasses import dataclass
-from datetime import datetime
-
 from core.domain.value_objects.time_slot import TimeSlot
+from core.domain.enums.BookingStatus import BookingStatus
 
-
-@dataclass(frozen=True)
 class Booking:
     """
-    Booking entity.
-
-    Why it exists:
-    - Represents a confirmed booking.
-    - Links organization, user, date and time slot.
+    Represents a booking made by a user within an organization.
     """
-    id: str
-    organization_id: str
-    user_id: str
-    date: datetime
-    slot: TimeSlot
+
+    def __init__(
+        self,
+        id: str,
+        organization_id: str,
+        user_id: str,
+        time_slot: TimeSlot,
+        status: str = BookingStatus.ACTIVE,
+    ):
+        self.id = id
+        self.organization_id = organization_id
+        self.user_id = user_id
+        self.time_slot = time_slot
+        self.status = status
+
+    def cancel(self):
+        self.status = BookingStatus.CANCELLED
+
+    @property
+    def is_cancelled(self) -> bool:
+        return self.status == BookingStatus.CANCELLED

@@ -1,35 +1,28 @@
-"""
-TimeSlot Value Object
-"""
-from datetime import time
+# core/domain/value_objects/time_slot.py
+
+from datetime import datetime
 
 
 class TimeSlot:
     """
-    Value Object representing a time slot.
+    Immutable value object representing a time range.
     """
 
-    def __init__(self, start, end) -> None:
-        self._start = self._parse(start)
-        self._end = self._parse(end)
+    def __init__(self, start: datetime, end: datetime):
+        
+        if isinstance(start, str):
+            start = datetime.fromisoformat(start)
+        if isinstance(end, str):
+            end = datetime.fromisoformat(end)
+        
+        if start >= end:
+            raise ValueError("TimeSlot start must be before end")
 
-        if self._start >= self._end:
-            raise ValueError("Start time must be before end time")
+        self.start = start
+        self.end = end
 
-    @property
-    def start(self) -> time:
-        return self._start
+    def overlaps(self, other: "TimeSlot") -> bool:
+        return self.start < other.end and other.start < self.end
 
-    @property
-    def end(self) -> time:
-        return self._end
-
-    def _parse(self, value) -> time:
-        if isinstance(value, time):
-            return value
-
-        if isinstance(value, str):
-            hour, minute = map(int, value.split(":"))
-            return time(hour, minute)
-
-        raise ValueError("Invalid time value")
+    def duration_minutes(self) -> int:
+        return int((self.end - self.start).total_seconds() / 60)
